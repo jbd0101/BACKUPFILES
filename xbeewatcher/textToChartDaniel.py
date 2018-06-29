@@ -114,7 +114,7 @@ if(input("Gaussian Test ? y/n ")=="y"):
   createSimpleGraph([sensors["BMP-2"],gaussian_filter(sensors["BMP-2"], sigma=2.5)],"gaussian and no gaussian")
 
 if(input("Altitude (BMP-GPS)? y/n ")=="y"):
-  createSimpleGraphGF( [sensors["BMP-2"], sensors["n-2"]] , "Altitude (BMP and GPS)" )
+  createSimpleGraphGF( [sensors["BMP-2"], sensors["GPSM-2"]] , "Altitude (BMP and GPS)" )
 
 
 if(input("Test? y / n ")=="y"):
@@ -131,17 +131,17 @@ Special graphs : tout graphique qui doit avoir ses donnees retraites ;-)
 '''
 
 #gps
-firstx = sensors["n-0"][0]
-firsty = sensors["n-1"][0]
+firstx = sensors["GPSM-0"][0]
+firsty = sensors["GPSM-1"][0]
 base_coords = (firstx,firsty)
 positionXinM = []
 positionYinM = []
 altitude = []
-for i in range(len(sensors["n-0"])):
+for i in range(len(sensors["GPSM-0"])):
   try:
-    x = sensors["n-0"][i]
-    y = sensors["n-1"][i]
-    if(x>55 or y > 8 or sensors["n-1"][i] > 100):
+    x = sensors["GPSM-0"][i]
+    y = sensors["GPSM-1"][i]
+    if(x>55 or y > 8 or sensors["GPSM-1"][i] > 100):
       continue
     coordsX = (x,firsty)
     coordsY = (firstx,y)
@@ -149,7 +149,7 @@ for i in range(len(sensors["n-0"])):
     disty = geopy.distance.vincenty(coordsY, base_coords).m
     positionXinM.append(disty)
     positionYinM.append(distX)
-    altitude.append(sensors["n-2"][i])
+    altitude.append(sensors["GPSM-2"][i])
   except Exception as e:
     continue
 
